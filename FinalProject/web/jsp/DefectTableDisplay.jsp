@@ -5,6 +5,7 @@
 --%>
 <%@page import = "java.util.List"%>
 <%@page import = "java.util.ArrayList"%>
+<%@page import = "java.util.List"%>
 <%@page import = "com.uci.java.teama.User"%>
 <%@page import = "com.uci.java.teama.DBIO"%>
 <%@page import = "com.uci.java.teama.Defect"%>
