@@ -25,6 +25,7 @@ public class User {
         this.category = false;
     }
 
+    // all parameters
     public User(String firstName, String lastName, String emailAddress, String password, boolean category) {
         this.firstName = firstName;
         this.lastName = lastName;
