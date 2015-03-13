@@ -1,7 +1,7 @@
 <%-- 
-    Document   : DefectTrackingPageAdmin.jsp
-    Created on : Mar 10, 2015, 4:08:46 PM
-    Author     : angc
+    Document   : DefectTrackingPage
+    Created on : Mar 13, 2015, 1:00:31 PM
+    Author     : kieky
 --%>
 
 <%@page import = "java.util.List"%>
@@ -32,7 +32,7 @@
         </div>
         <div>
             <%@include file = "../WEB-INF/jspf/SubmissionPage.jspf"%>
-            <%@include file = "../WEB-INF/jspf/SubmissionPageAdmin.jspf"%>
         </div>
     </body>
 </html>
+

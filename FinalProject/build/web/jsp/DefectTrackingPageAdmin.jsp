@@ -24,14 +24,15 @@
             <%
                 User myUser = (User)request.getAttribute("aUser");
                 out.println("Defect Status: Welcome " + myUser.getFirstName() + " " + myUser.getLastName());
+                session.setAttribute("originator", myUser);
             %>
         </h1>
     <div>
             <%@include file = "../jsp/DefectTableDisplay.jsp"%>
         </div>
         <div>
-            <%@include file = "../jspf/SubmissionPage.jspf"%>
-            <%@include file = "../jspf/SubmissionPageAdmin.jspf"%>
+            <%@include file = "../WEB-INF/jspf/SubmissionPage.jspf"%>
+            <%@include file = "../WEB-INF/jspf/SubmissionPageAdmin.jspf"%>
         </div>
     </body>
 </html>

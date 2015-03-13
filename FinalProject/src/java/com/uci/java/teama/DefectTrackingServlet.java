@@ -90,7 +90,7 @@ public class DefectTrackingServlet extends HttpServlet {
                 if (category) {
                     url = "/jsp/DefectTrackingPageAdmin.jsp";
                 } else {
-                    url = "jsp/DefectTrackingPage.jsp";
+                    url = "/jsp/DefectTrackingPage.jsp";
                 }
 
                 request.setAttribute("aUser", myUser);
@@ -99,37 +99,35 @@ public class DefectTrackingServlet extends HttpServlet {
                 request.setAttribute("password_correct", "wrong");
             }
         } else if(action.equalsIgnoreCase("newcase")) {
-//            String description = request.getParameter("newdescription");
-//            String originator  = (String)request.getSession().getAttribute("originator");
-//            
-//            Defect myDefect = new Defect();
-//            myDefect.setDescription(description);
-//            myDefect.setOriginator(originator);
-//            
-//            User oneUser = (User)request.getSession().getAttribute("originator");
-//            
-//            Defect oneDefect = new Defect(oneUser.getEmail(),description,"","open","",0);
-//            DefectDB defectDB = new DefectDB("root","password","jdbc:mysql://localhost:3306/defecttrackingdb");
-//            
-//            boolean dbOK = defectDB.insert(oneDefect);
-//            
-//            request.setAttribute("user", oneUser);
-//                
-//            if(dbOK == true) {
-//                request.setAttribute("newcaseok", "ok");
-//                if(oneUser.getCategory() == true) {
-//                    url = "/jsp/DefectTrackingPageAdmin.jsp";
-//                } else {
-//                    url = "/jsp/DefectTrackingPage.jsp";
-//                }
-//            } else {
-//                request.setAttribute("newcaseok", "notok");
-//                if(oneUser.getCategory() == true) {
-//                    url = "/jsp/DefectTrackingPageAdmin.jsp";
-//                } else {
-//                    url = "/jsp/DefectTrackingPage.jsp";
-//                }
-//            }
+            String description = request.getParameter("newdescription");
+            
+            User oneUser = (User)request.getSession().getAttribute("originator");
+            String originator  = oneUser.getEmailAddress();
+ 
+            Defect oneDefect = new Defect(originator,description,"","open","",0);
+            //DefectDB defectDB = new DefectDB("root","password","jdbc:mysql://localhost:3306/defecttrackingdb");
+            DBIO defectDB = new DBIO(oneDefect);
+            
+            boolean dbOK = defectDB.addDefect(oneDefect);
+            
+            request.setAttribute("aUser", oneUser);
+            request.setAttribute("theDefects", defectDB.viewListOfAllOpenDefects(true));
+                
+            if(dbOK == true) {
+                request.setAttribute("newcaseok", "ok");
+                if(oneUser.isCategory() == true) {
+                    url = "/jsp/DefectTrackingPageAdmin.jsp";
+                } else {
+                    url = "/jsp/DefectTrackingPage.jsp";
+                }
+            } else {
+                request.setAttribute("newcaseok", "notok");
+                if(oneUser.isCategory() == true) {
+                    url = "/jsp/DefectTrackingPageAdmin.jsp";
+                } else {
+                    url = "/jsp/DefectTrackingPage.jsp";
+                }
+            }
         } else if(action.equalsIgnoreCase("updatecase")) {
             url = "/jsp/DefectTrackingPageAdmin.jsp";
 

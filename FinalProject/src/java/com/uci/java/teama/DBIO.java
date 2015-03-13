@@ -379,4 +379,45 @@ public class DBIO {
         }
         System.out.println(this.toString() + "- user added!");		
     }
+    
+    public boolean addDefect(Defect oneDefect) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet result = null;
+        
+        boolean executionStatus = false;
+        String cmd = "insert into defect (originator, description, assignee, case_status, summary, priority) values ";
+
+        System.out.println("\nAdding the Defect to the DB...");
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+            connection = DriverManager.getConnection(CONNECTION_URL, CONNECTION_USER, CONNECTION_PASSWORD);
+            statement = connection.createStatement();
+            
+            cmd = cmd + "( '" + oneDefect.getOriginator() + "'";
+            cmd = cmd + ", '" + oneDefect.getDescription() + "'";
+            cmd = cmd + ", '" + oneDefect.getAssignee() + "'";
+            cmd = cmd + ", '" + oneDefect.getStatus() + "'";
+            cmd = cmd + ", '" + oneDefect.getSummary() + "'";
+            cmd = cmd + ", " + oneDefect.getPriority() + " )";
+            
+            statement.execute(cmd);
+            
+            statement.close();
+            connection.close();
+            
+            executionStatus=true;
+
+        } catch (Exception e) {
+                e.printStackTrace();
+        } finally {
+            try { if (result != null) result.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (statement != null) statement.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+        System.out.println(this.toString() + "- defect added!");
+        return executionStatus;
+    }
 }

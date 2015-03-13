@@ -35,6 +35,17 @@ public class Defect {
         this.priority = 0;              // set initially to 0 = unassigned
     }
     // Six parameter constructor
+    public Defect(String originator, String description, String assignee, String status, String summary, int priority) {
+        // initialize fields
+        //do not set ID as ID is automatically assigned by system
+        this.originator = originator;
+        this.description = description;
+        this.assignee = assignee;
+        this.status = status;
+        this.summary = summary;
+        this.priority = 0;		// initialize with 0 = unassigned
+    }
+    // Seven parameter constructor
     public Defect(int id, String originator, String description, String assignee, String status, String summary, int priority) {
         // initialize fields
         this.id = id;
