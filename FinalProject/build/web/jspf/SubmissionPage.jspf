@@ -1,0 +1,17 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+    <div style="width:400px; float:left;">
+        <h1>Case Submission</h1>
+        <p>Please fill in the information below to submit a case</p>
+        <form action="/DefectTrackingServlet" method="POST">
+            <input type="hidden" name="action" value="newcase">
+
+            <label>Description</label>
+            <br>
+            <textarea name="newdescription" rows="4" cols="20" required></textarea>
+            <br>
+            <label>&nbsp;</label>
+            <input type="submit" value="Submit" id="Submit">
+            <input type="reset" value="Reset">
+        </form>
+    </div>
