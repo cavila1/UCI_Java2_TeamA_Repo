@@ -40,7 +40,7 @@
         <input type="text" name="updateassignee">
         <br>
         <label>Case Status</label>
-        <select name ="updatestauts">
+        <select name ="updatestatus">
             <option value="open">open</option>
             <option value="closed">closed</option>
         </select>
