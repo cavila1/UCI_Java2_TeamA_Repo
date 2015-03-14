@@ -27,7 +27,7 @@
                 session.setAttribute("originator", myUser);
             %>
         </h1>
-    <div>
+        <div>
             <%@include file = "../jsp/DefectTableDisplay.jsp"%>
         </div>
         <div>

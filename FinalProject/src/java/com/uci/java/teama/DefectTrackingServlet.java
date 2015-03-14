@@ -8,6 +8,8 @@ package com.uci.java.teama;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 //import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -60,7 +62,8 @@ public class DefectTrackingServlet extends HttpServlet {
                 myUser.setFirstName(myDBConnection.getFirstName());
                 myUser.setLastName(myDBConnection.getLastName());
                 request.setAttribute("aUser", myUser);
-                request.setAttribute("theDefects", myDBConnection.viewListOfAllOpenDefects(true));
+                //request.setAttribute("theDefects", myDBConnection.viewListOfAllOpenDefects(true));
+                request.getSession().setAttribute("theDefects", myDBConnection.viewListOfAllOpenDefects(true));
             } else {
                 url = "/index.jsp";
                 request.setAttribute("password_correct", "wrong");
@@ -111,7 +114,8 @@ public class DefectTrackingServlet extends HttpServlet {
             boolean dbOK = defectDB.addDefect(oneDefect);
             
             request.setAttribute("aUser", oneUser);
-            request.setAttribute("theDefects", defectDB.viewListOfAllOpenDefects(true));
+            //request.setAttribute("theDefects", defectDB.viewListOfAllOpenDefects(true));
+            request.getSession().setAttribute("theDefects", defectDB.viewListOfAllOpenDefects(true));
                 
             if(dbOK == true) {
                 request.setAttribute("newcaseok", "ok");
@@ -138,14 +142,15 @@ public class DefectTrackingServlet extends HttpServlet {
             String assignee     = request.getParameter("updateassignee");
             String description  = request.getParameter("updatedescription");
             String summary      = request.getParameter("updatesummary");
-            String status       = request.getParameter("updatestatus");
+            String case_status  = request.getParameter("updatestatus");
             String priority     = request.getParameter("updatepriority");
             
+            myDefect.setId(Integer.parseInt(defectID));
             myDefect.setOriginator(originator);
             myDefect.setAssignee(assignee);
             myDefect.setDescription(description);
             myDefect.setPriority(Integer.parseInt(priority));
-            myDefect.setStatus(status);
+            myDefect.setStatus(case_status);
             myDefect.setSummary(summary);
 
             DBIO myDBConnection = new DBIO(myDefect);
@@ -156,7 +161,8 @@ public class DefectTrackingServlet extends HttpServlet {
             
             User myUser = (User)request.getSession().getAttribute("originator");
             request.setAttribute("aUser", myUser);
-            request.setAttribute("theDefects", myDBConnection.viewListOfAllOpenDefects(true));
+            //request.setAttribute("theDefects", myDBConnection.viewListOfAllOpenDefects(true));
+            request.getSession().setAttribute("theDefects", myDBConnection.viewListOfAllOpenDefects(true));
         } else if(action.equalsIgnoreCase("retrievecase")) {
 //            url = "/jsp/DefectTrackingPageAdmin.jsp";
 //            
@@ -212,5 +218,4 @@ public class DefectTrackingServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

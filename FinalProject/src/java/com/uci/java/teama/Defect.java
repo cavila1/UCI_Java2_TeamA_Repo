@@ -43,7 +43,7 @@ public class Defect {
         this.assignee = assignee;
         this.status = status;
         this.summary = summary;
-        this.priority = 0;		// initialize with 0 = unassigned
+        this.priority = priority;
     }
     // Seven parameter constructor
     public Defect(int id, String originator, String description, String assignee, String status, String summary, int priority) {
@@ -54,7 +54,7 @@ public class Defect {
         this.assignee = assignee;
         this.status = status;
         this.summary = summary;
-        this.priority = 0;		// initialize with 0 = unassigned
+        this.priority = priority;
     }
 
     public int getId() {

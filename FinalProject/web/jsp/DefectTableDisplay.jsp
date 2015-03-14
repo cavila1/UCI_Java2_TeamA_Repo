@@ -28,7 +28,9 @@
             <th>Priority</th>
         </tr>
         <%
-            ArrayList<Defect> defectDisplay = (ArrayList<Defect>)request.getAttribute("theDefects");
+            ArrayList<Defect> defectDisplay = new ArrayList<Defect>();
+            //ArrayList<Defect> defectDisplay = (ArrayList<Defect>)request.getAttribute("theDefects");
+            defectDisplay = (ArrayList<Defect>)session.getAttribute("theDefects");
             for (Defect myDefect : defectDisplay) {
                 out.println("<tr>");
                     out.println("<td>");
@@ -47,7 +49,7 @@
                         out.println(String.valueOf(myDefect.getStatus()));
                     out.println("</td>");
                     out.println("<td>");
-                        out.println(String.valueOf(myDefect.getStatus()));
+                        out.println(String.valueOf(myDefect.getSummary()));
                     out.println("</td>");
                     out.println("<td>");
                         out.println(String.valueOf(myDefect.getPriority()));

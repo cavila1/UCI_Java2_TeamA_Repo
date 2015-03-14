@@ -173,12 +173,13 @@ public class DBIO {
             if (this.getId() != 0) {
                 // Update defect VALUES (originator, description, assignee, status, summary, priority);
                 sqlStatement = "UPDATE defect SET originator = \'" + this.getOriginator() + "\'"
-                    + "SET description = \'" + this.getDescription() + "\'"
-                    + "SET assignee = \'" + this.getAssignee() + "\'"
-                    + "SET status = \'" + this.getStatus() + "\'"
-                    + "SET summary = \'" + this.getSummary() + "\'"
-                    + "SET priority = \'" + this.getPriority() + "\'"
-                    + "WHERE ID = " + this.getId();
+                    + ", description = \'" + this.getDescription() + "\'"
+                    + ", assignee = \'" + this.getAssignee() + "\'"
+                    + ", case_status = \'" + this.getStatus() + "\'"
+                    + ", summary = \'" + this.getSummary() + "\'"
+                    + ", priority = \'" + this.getPriority() + "\'"
+                    + " WHERE ID = " + this.getId();
+System.out.println(sqlStatement);
                 statement.executeUpdate(sqlStatement);	
             } else {
                 // INSERT INTO defect VALUES (originator, description, assignee, status, summary, priority);
@@ -285,7 +286,8 @@ public class DBIO {
                         originator = result.getString("originator");
                         description = result.getString("description");
                         assignee = result.getString("assignee");
-                        case_status = result.getString("summary");
+                        case_status = result.getString("case_status");
+                        summary = result.getString("summary");
                         priority = result.getInt("priority");
                         // Add open defect to List of Defects
                         openDefects.add(new Defect(id, originator, description, assignee, case_status, summary, priority));
@@ -297,7 +299,8 @@ public class DBIO {
                     originator = result.getString("originator");
                     description = result.getString("description");
                     assignee = result.getString("assignee");
-                    case_status = result.getString("summary");
+                    case_status = result.getString("case_status");
+                    summary = result.getString("summary");
                     priority = result.getInt("priority");
                     // Add any defect to List of Defects
                     openDefects.add(new Defect(id, originator, description, assignee, case_status, summary, priority));
