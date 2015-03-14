@@ -116,21 +116,29 @@ public class DefectTrackingServlet extends HttpServlet {
             request.setAttribute("aUser", oneUser);
             //request.setAttribute("theDefects", defectDB.viewListOfAllOpenDefects(true));
             request.getSession().setAttribute("theDefects", defectDB.viewListOfAllOpenDefects(true));
-                
-            if(dbOK == true) {
-                request.setAttribute("newcaseok", "ok");
-                if(oneUser.isCategory() == true) {
-                    url = "/jsp/DefectTrackingPageAdmin.jsp";
+            
+            DBIO myDBConnection = new DBIO(oneUser);
+            
+            if (myDBConnection.isValidUser())
+            {                
+                if(dbOK == true) {
+                    request.setAttribute("newcaseok", "ok");
+                    if(myDBConnection.isCategory() == true) {
+                        url = "/jsp/DefectTrackingPageAdmin.jsp";
+                    } else {
+                        url = "/jsp/DefectTrackingPage.jsp";
+                    }
                 } else {
-                    url = "/jsp/DefectTrackingPage.jsp";
+                    request.setAttribute("newcaseok", "notok");
+                    if(myDBConnection.isCategory() == true) {
+                        url = "/jsp/DefectTrackingPageAdmin.jsp";
+                    } else {
+                        url = "/jsp/DefectTrackingPage.jsp";
+                    }
                 }
             } else {
-                request.setAttribute("newcaseok", "notok");
-                if(oneUser.isCategory() == true) {
-                    url = "/jsp/DefectTrackingPageAdmin.jsp";
-                } else {
-                    url = "/jsp/DefectTrackingPage.jsp";
-                }
+                url = "/index.jsp";
+                request.setAttribute("password_correct", "wrong");
             }
         } else if(action.equalsIgnoreCase("updatecase")) {
             url = "/jsp/DefectTrackingPageAdmin.jsp";
